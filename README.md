@@ -1,5 +1,9 @@
 # 🌱 GREENBYTE: Digital Carbon Intelligence Platform
 
+## 👥 Team Members
+- KS Anagha(CSE, PES University) 
+- Keerthi Shivakumar(ECE, PES University)
+
  **Solutions that take root today for a sustainable tomorrow**
 
 ## The Problem
