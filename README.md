@@ -1,6 +1,6 @@
 # 🌱 GREENBYTE: Digital Carbon Intelligence Platform
 
-## 👥 Team Members
+## Team Members
 - KS Anagha(CSE, PES University) 
 - Keerthi Shivakumar(ECE, PES University)
 
@@ -15,12 +15,12 @@ Data centers now consume **352TWh globally** and account for **2.5-3.7% of green
 **GREENBYTE** is a privacy-first digital assistant that audits digital footprints and provides actionable steps to reduce emissions while showing live CO₂ impact.
 
 ### Core Features
-- **📧 Inbox Clean Sweep**: ML-powered detection identifies spam, newsletters, and promotions with 95% accuracy
-- **📱 Photo De-duplication**: On-device AI finds duplicate screenshots and redundant files
-- **☁️ Cloud Trimming**: Smart analysis highlights large, idle files with compression recommendations
-- **🎮 GreenPoints Gamification**: Converts CO₂ savings into rewards (meal discounts, metro credits, tree planting)
+- **Inbox Clean Sweep**: ML-powered detection identifies spam, newsletters, and promotions with 95% accuracy
+- **Photo De-duplication**: On-device AI finds duplicate screenshots and redundant files
+- **Cloud Trimming**: Smart analysis highlights large, idle files with compression recommendations
+- **GreenPoints Gamification**: Converts CO₂ savings into rewards (meal discounts, metro credits, tree planting)
 
-## 📊Validated Impact
+## Validated Impact
 
 ### Scale Potential
 | Scale | Users | Annual CO₂ Saved | Equivalent Impact |
@@ -29,14 +29,14 @@ Data centers now consume **352TWh globally** and account for **2.5-3.7% of green
 | **Bangalore** | 800,000 | 57,840 tons | Removing 12,500 cars |
 | **India (1%)** | 7.5M | 542,250 tons | Powering 108,450 homes |
 
-## 🔒Privacy-First Architecture
+## Privacy-First Architecture
 
 - ✅ **On-Device Processing**: All analysis happens locally—no data leaves user devices
 - ✅ **OAuth-Only Authentication**: Secure API access without storing credentials
 - ✅ **Real-Time Impact Tracking**: Instant CO₂ calculations for every action
 - ✅ **Complete Reversibility**: Full undo functionality for all cleanup actions
 
-## 🚀 Roadmap
+##  Roadmap
 
 ### Phase 1: Campus Pilot (Months 1-3)
 - Beta launch with 500 PES University volunteers
@@ -53,7 +53,7 @@ Data centers now consume **352TWh globally** and account for **2.5-3.7% of green
 - Government partnerships for national campaigns
 - International expansion to Southeast Asia
 
-## 🏆Competitive Advantage
+## Competitive Advantage
 
 | Feature | Traditional Trackers | GREENBYTE |
 |---------|---------------------|-----------|
@@ -65,7 +65,7 @@ Data centers now consume **352TWh globally** and account for **2.5-3.7% of green
 ## Team Rooted Minds
 *Why "Rooted Minds"?* Our name reflects solutions deeply grounded in practical reality while branching toward innovative impact—like strong root systems that create sustainable change from the ground up.
 
-## 📈 Business Model
+## Business Model
 
 - **Individual Users**: Freemium with premium analytics
 - **Enterprise Customers**: ₹50 per employee/month for ESG dashboards
