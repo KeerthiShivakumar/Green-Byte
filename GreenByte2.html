@@ -1,0 +1,1128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GREENBYTE - Every byte counts. Make it green.</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* THEME VARIABLES */
+        :root {
+            --gb-bg: radial-gradient(1200px 800px at 70% 20%, #0a1b16 0%, #0a0f0c 45%, #050606 100%);
+            --gb-accent: linear-gradient(135deg, #00e676 0%, #00c853 50%, #a7f3d0 100%);
+            --gb-glass: rgba(255, 255, 255, 0.08);
+            --gb-glass-border: rgba(255, 255, 255, 0.12);
+            --gb-text: #ffffff;
+            --gb-text-muted: #a0a9a5;
+            --gb-green: #00e676;
+            --gb-green-light: #a7f3d0;
+            --gb-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        /* BASE STYLES */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--gb-bg);
+            color: var(--gb-text);
+            overflow: hidden;
+            position: relative;
+            min-height: 100vh;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        /* ANIMATED BACKGROUND */
+        .bg-particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .particle {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: var(--gb-green-light);
+            border-radius: 50%;
+            opacity: 0.4;
+            animation: float-particles 20s linear infinite;
+        }
+
+        @keyframes float-particles {
+            0% { transform: translateY(100vh) translateX(0); opacity: 0; }
+            10% { opacity: 0.4; }
+            90% { opacity: 0.4; }
+            100% { transform: translateY(-10vh) translateX(50px); opacity: 0; }
+        }
+
+        /* PRESENTATION LAYOUT */
+        .presentation {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            z-index: 10;
+        }
+
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 4rem 2rem;
+            opacity: 0;
+            transform: translateX(100%);
+            transition: all 0.8s cubic-bezier(0.23, 1, 0.320, 1);
+        }
+
+        .slide.active {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .slide.prev {
+            transform: translateX(-100%);
+        }
+
+        .slide-content {
+            max-width: 1200px;
+            text-align: center;
+            position: relative;
+            z-index: 5;
+        }
+
+        /* GLASSMORPHISM CARDS */
+        .glass-card {
+            background: var(--gb-glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--gb-glass-border);
+            border-radius: 24px;
+            padding: 2rem;
+            box-shadow: var(--gb-shadow);
+        }
+
+        /* TYPOGRAPHY */
+        h1 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 5rem;
+            font-weight: 900;
+            background: var(--gb-accent);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 30px rgba(0, 230, 118, 0.3);
+            animation: title-glow 3s ease-in-out infinite;
+        }
+
+        @keyframes title-glow {
+            0%, 100% { filter: drop-shadow(0 0 20px rgba(0, 230, 118, 0.3)); }
+            50% { filter: drop-shadow(0 0 40px rgba(0, 230, 118, 0.6)); }
+        }
+
+        h2 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            color: var(--gb-text);
+        }
+
+        .tagline {
+            font-family: 'Inter', sans-serif;
+            font-size: 1.5rem;
+            color: var(--gb-green-light);
+            margin-bottom: 1rem;
+            font-weight: 400;
+        }
+
+        .subtitle {
+            font-family: 'Inter', sans-serif;
+            font-size: 1.1rem;
+            color: var(--gb-text-muted);
+            margin-bottom: 3rem;
+        }
+
+        .body-text {
+            font-size: 1.3rem;
+            line-height: 1.8;
+            color: var(--gb-text-muted);
+            margin-bottom: 2rem;
+        }
+
+        /* SLIDE 1 - TITLE */
+        /* SLIDE 2 - PROBLEM */
+        .stat-block {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .stat-card {
+            background: var(--gb-glass);
+            backdrop-filter: blur(15px);
+            border: 1px solid var(--gb-glass-border);
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: var(--gb-shadow);
+            animation: slide-up 0.8s ease-out forwards;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .stat-card:nth-child(1) { animation-delay: 0.2s; }
+        .stat-card:nth-child(2) { animation-delay: 0.4s; }
+        .stat-card:nth-child(3) { animation-delay: 0.6s; }
+
+        @keyframes slide-up {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .stat-number {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--gb-green);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            color: var(--gb-text-muted);
+        }
+
+        /* SLIDE 4 - SOLUTION OVERVIEW */
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .feature-item {
+            background: var(--gb-glass);
+            backdrop-filter: blur(15px);
+            border: 1px solid var(--gb-glass-border);
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: left;
+            box-shadow: var(--gb-shadow);
+            transition: transform 0.3s ease;
+        }
+
+        .feature-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--gb-accent);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--gb-text);
+            margin-bottom: 0.5rem;
+        }
+
+        .feature-desc {
+            font-size: 0.9rem;
+            color: var(--gb-text-muted);
+            line-height: 1.5;
+        }
+
+        /* SLIDE 5 - DEMO DASHBOARD */
+        .dashboard-mock {
+            background: var(--gb-glass);
+            backdrop-filter: blur(20px);
+            border: 2px solid var(--gb-glass-border);
+            border-radius: 24px;
+            padding: 3rem;
+            margin: 3rem 0;
+            box-shadow: var(--gb-shadow);
+            animation: dashboard-pulse 4s ease-in-out infinite;
+        }
+
+        @keyframes dashboard-pulse {
+            0%, 100% { box-shadow: var(--gb-shadow), 0 0 0 rgba(0, 230, 118, 0.3); }
+            50% { box-shadow: var(--gb-shadow), 0 0 30px rgba(0, 230, 118, 0.3); }
+        }
+
+        .dashboard-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            color: var(--gb-text);
+        }
+
+        .dashboard-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .dashboard-stat {
+            text-align: center;
+        }
+
+        .dashboard-number {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--gb-green);
+            margin-bottom: 0.5rem;
+            animation: count-up 2s ease-out;
+        }
+
+        @keyframes count-up {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .dashboard-label {
+            font-size: 0.9rem;
+            color: var(--gb-text-muted);
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        .cta-btn {
+            padding: 0.8rem 1.5rem;
+            border: 1px solid var(--gb-green);
+            background: transparent;
+            color: var(--gb-green);
+            border-radius: 12px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .cta-btn:hover {
+            background: var(--gb-green);
+            color: #000;
+        }
+
+        /* SLIDE 6 - FEASIBILITY */
+        .arch-diagram {
+            background: var(--gb-glass);
+            backdrop-filter: blur(15px);
+            border: 1px solid var(--gb-glass-border);
+            border-radius: 20px;
+            padding: 2rem;
+            margin: 2rem 0;
+            text-align: left;
+            font-family: 'Monaco', monospace;
+            font-size: 0.9rem;
+            color: var(--gb-green-light);
+        }
+
+        .privacy-badges {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            background: var(--gb-glass);
+            border: 1px solid var(--gb-green);
+            color: var(--gb-green);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        /* SLIDE 7 - IMPACT MATH */
+        .impact-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .impact-card {
+            background: var(--gb-glass);
+            backdrop-filter: blur(15px);
+            border: 1px solid var(--gb-glass-border);
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: var(--gb-shadow);
+        }
+
+        .impact-number {
+            font-family: 'Poppins', sans-serif;
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--gb-green);
+            margin-bottom: 1rem;
+        }
+
+        .impact-desc {
+            font-size: 1rem;
+            color: var(--gb-text-muted);
+            line-height: 1.5;
+        }
+
+        /* SLIDE 10 - ROADMAP */
+        .roadmap {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .roadmap-phase {
+            background: var(--gb-glass);
+            backdrop-filter: blur(15px);
+            border: 1px solid var(--gb-glass-border);
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: var(--gb-shadow);
+            position: relative;
+        }
+
+        .phase-number {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 30px;
+            height: 30px;
+            background: var(--gb-green);
+            color: #000;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+        }
+
+        .phase-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--gb-text);
+            margin: 1rem 0;
+        }
+
+        .phase-desc {
+            font-size: 0.9rem;
+            color: var(--gb-text-muted);
+            line-height: 1.5;
+        }
+
+        /* SLIDE 12 - CLOSING */
+        .closing-quote {
+            font-family: 'Poppins', sans-serif;
+            font-size: 3rem;
+            font-weight: 600;
+            color: var(--gb-green);
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .closing-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 3rem;
+        }
+
+        .closing-btn {
+            padding: 1rem 2rem;
+            background: var(--gb-green);
+            color: #000;
+            border: none;
+            border-radius: 12px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .closing-btn:hover {
+            background: var(--gb-green-light);
+            transform: translateY(-2px);
+        }
+
+        /* NAVIGATION */
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 4px;
+            background: var(--gb-accent);
+            z-index: 1000;
+            transition: width 0.6s ease;
+            box-shadow: 0 0 10px rgba(0, 230, 118, 0.5);
+        }
+
+        .slide-counter {
+            position: fixed;
+            top: 2rem;
+            right: 2rem;
+            background: var(--gb-glass);
+            backdrop-filter: blur(15px);
+            border: 1px solid var(--gb-glass-border);
+            padding: 0.8rem 1.2rem;
+            border-radius: 20px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 500;
+            z-index: 1000;
+            box-shadow: var(--gb-shadow);
+        }
+
+        .navigation {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 1rem;
+            z-index: 1000;
+        }
+
+        .nav-btn {
+            background: var(--gb-glass);
+            backdrop-filter: blur(15px);
+            border: 1px solid var(--gb-glass-border);
+            color: var(--gb-text);
+            padding: 1rem 2rem;
+            border-radius: 25px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: var(--gb-shadow);
+        }
+
+        .nav-btn:hover:not(:disabled) {
+            background: var(--gb-green);
+            color: #000;
+            transform: translateY(-2px);
+        }
+
+        .nav-btn:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+
+        .progress-dots {
+            position: fixed;
+            bottom: 6rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 0.5rem;
+            z-index: 1000;
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--gb-text-muted);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .dot.active {
+            background: var(--gb-green);
+            transform: scale(1.2);
+        }
+
+        .export-btn {
+            position: fixed;
+            top: 2rem;
+            left: 2rem;
+            background: var(--gb-glass);
+            backdrop-filter: blur(15px);
+            border: 1px solid var(--gb-glass-border);
+            color: var(--gb-text);
+            padding: 0.8rem 1.2rem;
+            border-radius: 20px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 500;
+            cursor: pointer;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .export-btn:hover {
+            background: var(--gb-green);
+            color: #000;
+        }
+
+        /* RESPONSIVE DESIGN */
+        @media (max-width: 1024px) {
+            h1 { font-size: 3.5rem; }
+            h2 { font-size: 2.5rem; }
+            .feature-grid { grid-template-columns: 1fr; }
+            .dashboard-stats { grid-template-columns: 1fr; gap: 1rem; }
+            .roadmap { grid-template-columns: 1fr; }
+            .impact-grid { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 768px) {
+            .slide { padding: 2rem 1rem; }
+            h1 { font-size: 2.5rem; }
+            h2 { font-size: 2rem; }
+            .tagline { font-size: 1.2rem; }
+            .body-text { font-size: 1.1rem; }
+            .stat-block { grid-template-columns: 1fr; gap: 1rem; }
+            .cta-buttons { flex-direction: column; align-items: center; }
+            .closing-buttons { flex-direction: column; align-items: center; }
+            .navigation { bottom: 1rem; }
+            .progress-dots { bottom: 4rem; }
+        }
+
+        /* PRINT STYLES */
+        @media print {
+            @page {
+                size: A4 landscape;
+                margin: 1cm;
+            }
+            
+            body {
+                background: white !important;
+                color: black !important;
+            }
+            
+            .slide {
+                position: relative !important;
+                transform: none !important;
+                opacity: 1 !important;
+                height: auto !important;
+                page-break-after: always;
+                margin-bottom: 2rem;
+            }
+            
+            .navigation, .progress-bar, .slide-counter, .export-btn, .progress-dots {
+                display: none !important;
+            }
+            
+            .glass-card, .stat-card, .feature-item, .dashboard-mock {
+                background: #f8f9fa !important;
+                border: 1px solid #dee2e6 !important;
+                color: black !important;
+            }
+            
+            h1, h2, .stat-number, .dashboard-number, .impact-number {
+                color: #00c853 !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- ANIMATED BACKGROUND -->
+    <div class="bg-particles" id="particles"></div>
+    
+    <!-- PROGRESS BAR -->
+    <div class="progress-bar" id="progressBar"></div>
+    
+    <!-- SLIDE COUNTER -->
+    <div class="slide-counter">
+        <span id="currentSlide">01</span> / 12
+    </div>
+    
+    <!-- EXPORT BUTTON -->
+    <button class="export-btn" onclick="window.print()" aria-label="Export to PDF">📄 Export PDF</button>
+    
+    <!-- PRESENTATION -->
+    <div class="presentation">
+        
+        <!-- SLIDE 1 - TITLE / HOOK -->
+        <div class="slide active">
+            <div class="slide-content">
+                <h1>GREENBYTE</h1>
+                <div class="tagline">Every byte counts. Make it green.</div>
+                <div class="subtitle">Team Rooted Minds · PES University</div>
+                <div class="body-text">Digital sustainability for everyone—students, campuses, companies.</div>
+            </div>
+        </div>
+        
+        <!-- SLIDE 2 - THE HIDDEN PROBLEM -->
+        <div class="slide">
+            <div class="slide-content">
+                <h2>The Hidden Problem</h2>
+                <div class="stat-block">
+                    <div class="stat-card">
+                        <div class="stat-number">0.3g CO₂</div>
+                        <div class="stat-label">A single email</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">Silent drain</div>
+                        <div class="stat-label">Duplicate photos + idle cloud storage</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">Tons of CO₂</div>
+                        <div class="stat-label">At campus scale, small habits multiply</div>
+                    </div>
+                </div>
+                <div class="body-text">We fight plastic and traffic—but our digital lives pollute too.</div>
+            </div>
+        </div>
+        
+        <!-- SLIDE 3 - INSIGHT & TRADE-OFF -->
+        <div class="slide">
+            <div class="slide-content">
+                <h2>Why Now?</h2>
+                <div class="closing-quote">Solving one problem mustn't create another.</div>
+                <div class="body-text">
+                    Energy-efficient chips need rare-earths; cloud storage shifts load to data centers.<br><br>
+                    So we start where impact is high and adoption friction is low: <strong>everyday digital habits</strong>.
+                </div>
+            </div>
+        </div>
+        
+        <!-- SLIDE 4 - SOLUTION OVERVIEW -->
+        <div class="slide">
+            <div class="slide-content">
+                <h2>What is GREENBYTE?</h2>
+                <div class="body-text">A lightweight assistant that audits your digital footprint, prioritizes quick wins, and shows live CO₂ impact.</div>
+                
+                <div class="feature-grid">
+                    <div class="feature-item">
+                        <div class="feature-icon">🧹</div>
+                        <div class="feature-title">Inbox Clean Sweep</div>
+                        <div class="feature-desc">Smart filters for newsletters/spam, safe bulk delete previews.</div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">🖼️</div>
+                        <div class="feature-title">Photo & File De-dupe</div>
+                        <div class="feature-desc">On-device duplicate detection; one-tap cleanup.</div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">☁️</div>
+                        <div class="feature-title">Cloud Trim</div>
+                        <div class="feature-desc">Large/idle file surfacing; move/compress/archive suggestions.</div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">🎮</div>
+                        <div class="feature-title">GreenPoints</div>
+                        <div class="feature-desc">Gamified challenges, campus leaderboards, redeemable rewards.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- SLIDE 5 - DEMO / MOCK UI -->
+        <div class="slide">
+            <div class="slide-content">
+                <h2>Your Impact Dashboard</h2>
+                
+                <div class="dashboard-mock">
+                    <div class="dashboard-title">Live Impact Tracking</div>
+                    <div class="dashboard-stats">
+                        <div class="dashboard-stat">
+                            <div class="dashboard-number">2,384</div>
+                            <div class="dashboard-label">Emails Cleaned</div>
+                        </div>
+                        <div class="dashboard-stat">
+                            <div class="dashboard-number">18.6 GB</div>
+                            <div class="dashboard-label">Storage Trimmed</div>
+                        </div>
+                        <div class="dashboard-stat">
+                            <div class="dashboard-number">72.3 kg</div>
+                            <div class="dashboard-label">CO₂ Saved</div>
+                        </div>
+                    </div>
+                    
+                    <div class="cta-buttons">
+                        <a href="#" class="cta-btn">Start Audit</a>
+                        <a href="#" class="cta-btn">Quick Wins (30s)</a>
+                        <a href="#" class="cta-btn">Share Impact</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- SLIDE 6 - FEASIBILITY -->
+        <div class="slide">
+            <div class="slide-content">
+                <h2>How It Works</h2>
+                
+                <div class="arch-diagram">
+                    Browser Extension / Desktop App
+                    ├── Gmail/Outlook APIs (OAuth)
+                    ├── Local file indexer (on-device)
+                    └── Optional Cloud APIs (Drive/OneDrive)
+                    
+                    Privacy-first: Analysis on device by default; 
+                    nothing leaves without consent.
+                </div>
+                
+                <div class="privacy-badges">
+                    <div class="badge">On-device by default</div>
+                    <div class="badge">Granular consent</div>
+                    <div class="badge">OAuth only</div>
+                    <div class="badge">Undo anytime</div>
+                </div>
+                
+                <div class="body-text">
+                    <strong>Tech notes:</strong> Heuristics + light ML for duplicates & newsletter patterns. Batch ops with undo; dry-run preview before delete.
+                </div>
+            </div>
+        </div>
+        
+        <!-- SLIDE 7 - IMPACT MATH -->
+        <div class="slide">
+            <div class="slide-content">
+                <h2>Quantified Impact</h2>
+                
+                <div class="impact-grid">
+                    <div class="impact-card">
+                        <div class="impact-number">~40 Wh</div>
+                        <div class="impact-desc">Energy avoided per 100 emails deleted</div>
+                    </div>
+                    <div class="impact-card">
+                        <div class="impact-number">50,000</div>
+                        <div class="impact-desc">Homes powered for a day if 10M users act monthly</div>
+                    </div>
+                </div>
+                
+                <div class="body-text">
+                    <strong>Campus lever:</strong> House one student's habits → influence the whole cohort.
+                </div>
+            </div>
+        </div>
+        
+        <!-- SLIDE 8 - SAFETY & PRIVACY -->
+        <div class="slide">
+            <div class="slide-content">
+                <h2>Safety & Privacy</h2>
+                
+                <div class="privacy-badges">
+                    <div class="badge">On-device by default</div>
+                    <div class="badge">Granular consent</div>
+                    <div class="badge">OAuth only</div>
+                    <div class="badge">Undo anytime</div>
+                </div>
+                
+                <div class="body-text">
+                    We never store credentials or content. Users choose what to clean.
+                </div>
+            </div>
+        </div>
+        
+        <!-- SLIDE 9 - GO-TO-MARKET & INCENTIVES -->
+        <div class="slide">
+            <div class="slide-content">
+                <h2>Go-to-Market & Incentives</h2>
+                
+                <div class="feature-grid">
+                    <div class="feature-item">
+                        <div class="feature-icon">🏫</div>
+                        <div class="feature-title">Start with Universities</div>
+                        <div class="feature-desc">Inter-college leaderboards, eco-credits, hackathon tie-ins</div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">🏆</div>
+                        <div class="feature-title">GreenPoints Marketplace</div>
+                        <div class="feature-desc">Cafeteria discounts, metro passes, tree-planting donations</div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">🏢</div>
+                        <div class="feature-title">Corporate Pilot</div>
+                        <div class="feature-desc">Sustainability dashboard + employee challenges</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- SLIDE 10 - ROADMAP -->
+        <div class="slide">
+            <div class="slide-content">
+                <h2>Roadmap</h2>
+                
+                <div class="roadmap">
+                    <div class="roadmap-phase">
+                        <div class="phase-number">1</div>
+                        <div class="phase-title">Phase 1 (4–6 weeks)</div>
+                        <div class="phase-desc">Inbox & duplicate photos MVP, campus pilot</div>
+                    </div>
+                    <div class="roadmap-phase">
+                        <div class="phase-number">2</div>
+                        <div class="phase-title">Phase 2 (3 months)</div>
+                        <div class="phase-desc">Cloud trimming, impact badges, marketplace v1</div>
+                    </div>
+                    <div class="roadmap-phase">
+                        <div class="phase-number">3</div>
+                        <div class="phase-title">Phase 3 (6–9 months)</div>
+                        <div class="phase-desc">Corporate dashboard, API for partners, city challenges</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- SLIDE 11 - DIFFERENTIATION -->
+        <div class="slide">
+            <div class="slide-content">
+                <h2>Our Differentiation</h2>
+                
+                <div class="impact-grid">
+                    <div class="impact-card">
+                        <div class="impact-number">💡</div>
+                        <div class="impact-desc"><strong>Not just awareness</strong> → actionable cleanups with verified impact</div>
+                    </div>
+                    <div class="impact-card">
+                        <div class="impact-number">⚡</div>
+                        <div class="impact-desc"><strong>Frictionless start</strong> → extension + on-device analysis</div>
+                    </div>
+                    <div class="impact-card">
+                        <div class="impact-number">📈</div>
+                        <div class="impact-desc"><strong>Scalable incentives</strong> → points, partners, public leaderboards</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- SLIDE 12 - CLOSING / CALL TO ACTION -->
+        <div class="slide">
+            <div class="slide-content">
+                <div class="closing-quote">Delete the junk. Save the planet.</div>
+                <div class="body-text">Join us to make digital sustainability a daily habit.</div>
+                
+                <div class="closing-buttons">
+                    <a href="#" class="closing-btn">Pilot on our campus</a>
+                    <a href="#" class="closing-btn">Try the MVP</a>
+                    <a href="#" class="closing-btn">Partner with GreenByte</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- NAVIGATION -->
+    <div class="navigation">
+        <button class="nav-btn" id="prevBtn" onclick="changeSlide(-1)" aria-label="Previous slide">← Previous</button>
+        <button class="nav-btn" id="nextBtn" onclick="changeSlide(1)" aria-label="Next slide">Next →</button>
+    </div>
+    
+    <!-- PROGRESS DOTS -->
+    <div class="progress-dots" id="progressDots"></div>
+    
+    <script>
+        // VARIABLES
+        let currentSlideIndex = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+        
+        // CREATE BACKGROUND PARTICLES
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 40;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 20 + 's';
+                particle.style.animationDuration = (Math.random() * 15 + 15) + 's';
+                particlesContainer.appendChild(particle);
+            }
+        }
+        
+        // CREATE PROGRESS DOTS
+        function createProgressDots() {
+            const dotsContainer = document.getElementById('progressDots');
+            for (let i = 0; i < totalSlides; i++) {
+                const dot = document.createElement('div');
+                dot.className = 'dot';
+                if (i === 0) dot.classList.add('active');
+                dot.addEventListener('click', () => goToSlide(i));
+                dot.setAttribute('aria-label', `Go to slide ${i + 1}`);
+                dotsContainer.appendChild(dot);
+            }
+        }
+        
+        // UPDATE SLIDE DISPLAY
+        function updateSlide() {
+            slides.forEach((slide, index) => {
+                slide.classList.remove('active', 'prev');
+                if (index === currentSlideIndex) {
+                    slide.classList.add('active');
+                } else if (index < currentSlideIndex) {
+                    slide.classList.add('prev');
+                }
+            });
+            
+            // Update progress bar
+            const progress = ((currentSlideIndex + 1) / totalSlides) * 100;
+            document.getElementById('progressBar').style.width = progress + '%';
+            
+            // Update counter (with leading zero)
+            document.getElementById('currentSlide').textContent = 
+                (currentSlideIndex + 1).toString().padStart(2, '0');
+            
+            // Update navigation buttons
+            document.getElementById('prevBtn').disabled = currentSlideIndex === 0;
+            document.getElementById('nextBtn').disabled = currentSlideIndex === totalSlides - 1;
+            
+            // Update progress dots
+            const dots = document.querySelectorAll('.dot');
+            dots.forEach((dot, index) => {
+                dot.classList.toggle('active', index === currentSlideIndex);
+            });
+        }
+        
+        // NAVIGATION FUNCTIONS
+        function changeSlide(direction) {
+            const newIndex = currentSlideIndex + direction;
+            if (newIndex >= 0 && newIndex < totalSlides) {
+                currentSlideIndex = newIndex;
+                updateSlide();
+            }
+        }
+        
+        function goToSlide(index) {
+            if (index >= 0 && index < totalSlides) {
+                currentSlideIndex = index;
+                updateSlide();
+            }
+        }
+        
+        // KEYBOARD NAVIGATION
+        document.addEventListener('keydown', function(event) {
+            switch(event.key) {
+                case 'ArrowRight':
+                case ' ':
+                    event.preventDefault();
+                    changeSlide(1);
+                    break;
+                case 'ArrowLeft':
+                    event.preventDefault();
+                    changeSlide(-1);
+                    break;
+                case 'Home':
+                    event.preventDefault();
+                    goToSlide(0);
+                    break;
+                case 'End':
+                    event.preventDefault();
+                    goToSlide(totalSlides - 1);
+                    break;
+            }
+        });
+        
+        // TOUCH/SWIPE SUPPORT
+        let startX = 0;
+        let startY = 0;
+        const threshold = 100;
+        
+        document.addEventListener('touchstart', function(event) {
+            const touch = event.touches[0];
+            startX = touch.clientX;
+            startY = touch.clientY;
+        });
+        
+        document.addEventListener('touchend', function(event) {
+            if (event.changedTouches.length === 0) return;
+            
+            const touch = event.changedTouches[0];
+            const distX = touch.clientX - startX;
+            const distY = touch.clientY - startY;
+            
+            // Only handle horizontal swipes
+            if (Math.abs(distX) > Math.abs(distY) && Math.abs(distX) > threshold) {
+                if (distX > 0) {
+                    changeSlide(-1); // Swipe right = previous slide
+                } else {
+                    changeSlide(1); // Swipe left = next slide
+                }
+                event.preventDefault();
+            }
+        });
+        
+        // INITIALIZE PRESENTATION
+        function initPresentation() {
+            createParticles();
+            createProgressDots();
+            updateSlide();
+            
+            // Add smooth transitions to elements
+            const animatedElements = document.querySelectorAll('.stat-card, .feature-item, .impact-card, .roadmap-phase');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.animationPlayState = 'running';
+                    }
+                });
+            });
+            
+            animatedElements.forEach(el => observer.observe(el));
+        }
+        
+        // ACCESSIBILITY IMPROVEMENTS
+        document.addEventListener('focusin', function(event) {
+            if (event.target.matches('.nav-btn, .dot')) {
+                event.target.style.outline = '2px solid var(--gb-green)';
+                event.target.style.outlineOffset = '2px';
+            }
+        });
+        
+        document.addEventListener('focusout', function(event) {
+            if (event.target.matches('.nav-btn, .dot')) {
+                event.target.style.outline = '';
+                event.target.style.outlineOffset = '';
+            }
+        });
+        
+        // INITIALIZE ON LOAD
+        document.addEventListener('DOMContentLoaded', initPresentation);
+        
+        // PREVENT CONTEXT MENU ON LONG PRESS
+        document.addEventListener('contextmenu', function(event) {
+            event.preventDefault();
+        });
+    </script>
+</body>
+</html>
